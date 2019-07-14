@@ -18,9 +18,9 @@ namespace InfluxData.Net.Kapacitor.Infrastructure
 
         public KapacitorVersion KapacitorVersion { get; private set; }
 
-        public HttpClient HttpClient { get; private set; }
+        public IHttpClientFactory HttpClient { get; private set; }
 
-        public KapacitorClientConfiguration(Uri endpointUri, string username, string password, KapacitorVersion kapacitorVersion, HttpClient httpClient = null, bool throwOnWarning = false)
+        public KapacitorClientConfiguration(Uri endpointUri, string username, string password, KapacitorVersion kapacitorVersion, IHttpClientFactory httpClient = null, bool throwOnWarning = false)
         {
             Validate.IsNotNull(endpointUri, "Endpoint may not be null or empty.");
             //Validate.IsNotNullOrEmpty(password, "Password may not be null or empty.");
@@ -30,7 +30,7 @@ namespace InfluxData.Net.Kapacitor.Infrastructure
             Username = username;
             Password = password;
             KapacitorVersion = kapacitorVersion;
-            HttpClient = httpClient ?? new HttpClient();
+            HttpClient = httpClient;
             ThrowOnWarning = throwOnWarning;
         }
 

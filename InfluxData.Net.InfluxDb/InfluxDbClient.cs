@@ -92,7 +92,7 @@ namespace InfluxData.Net.InfluxDb
             string password,
             InfluxDbVersion influxVersion,
             QueryLocation queryLocation = QueryLocation.FormData,
-            HttpClient httpClient = null,
+            IHttpClientFactory httpClient = null,
             bool throwOnWarning = false
         ) : this(
             new InfluxDbClientConfiguration(

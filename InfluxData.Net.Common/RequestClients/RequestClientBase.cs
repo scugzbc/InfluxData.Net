@@ -84,10 +84,7 @@ namespace InfluxData.Net.Common.RequestClients
 
             HandleIfErrorResponse(response.StatusCode, responseContent);
 
-#if DEBUG
-            Debug.WriteLine("[Response] {0}", response.ToJson());
-            Debug.WriteLine("[ResponseData] {0}", responseContent);
-#endif
+ 
 
             return new InfluxDataApiResponse(response.StatusCode, responseContent);
         }
@@ -103,16 +100,9 @@ namespace InfluxData.Net.Common.RequestClients
         {
             var uri = BuildUri(path, extraParams, includeAuthToQuery);
             var request = BuildRequest(method, content, uri);
+  
 
-#if DEBUG
-            Debug.WriteLine("[Request] {0}", request.ToJson());
-            if (content != null)
-            {
-                Debug.WriteLine("[RequestData] {0}", content.ReadAsStringAsync().Result);
-            }
-#endif
-
-            return await this.Configuration.HttpClient.SendAsync(request, completionOption, cancellationToken).ConfigureAwait(false);
+            return await this.Configuration.HttpClient.CreateClient().SendAsync(request, completionOption, cancellationToken).ConfigureAwait(false);
         }
 
         #endregion Request Base
@@ -156,9 +146,6 @@ namespace InfluxData.Net.Common.RequestClients
         {
             if (statusCode < HttpStatusCode.OK || statusCode >= HttpStatusCode.BadRequest)
             {
-#if DEBUG
-                Debug.WriteLine(String.Format("[Error] {0} {1}", statusCode, responseBody));
-#endif
                 throw new InfluxDataApiException(statusCode, responseBody);
             }
         }

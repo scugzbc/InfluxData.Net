@@ -23,7 +23,7 @@ namespace InfluxData.Net.Common.Infrastructure
         /// <summary>
         /// Custom HttpClient object (optional).
         /// </summary>
-        HttpClient HttpClient { get; }
+        IHttpClientFactory HttpClient { get; }
 
         /// <summary>
         /// Should throw exception upon InfluxDb warning message (for debugging).

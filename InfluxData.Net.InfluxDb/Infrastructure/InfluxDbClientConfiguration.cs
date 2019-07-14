@@ -20,7 +20,7 @@ namespace InfluxData.Net.InfluxDb.Infrastructure
 
         public QueryLocation QueryLocation { get; private set; }
 
-        public HttpClient HttpClient { get; private set; }
+        public IHttpClientFactory HttpClient { get; private set; }
 
         /// <summary>
         /// InfluxDb client configuration.
@@ -38,7 +38,7 @@ namespace InfluxData.Net.InfluxDb.Infrastructure
             string password, 
             InfluxDbVersion influxVersion,
             QueryLocation queryLocation = QueryLocation.FormData,
-            HttpClient httpClient = null, 
+            IHttpClientFactory httpClient = null, 
             bool throwOnWarning = false)
         {
             Validate.IsNotNull(endpointUri, "Endpoint may not be null or empty.");
@@ -48,7 +48,7 @@ namespace InfluxData.Net.InfluxDb.Infrastructure
             Password = password;
             InfluxVersion = influxVersion;
             QueryLocation = queryLocation;
-            HttpClient = httpClient ?? new HttpClient();
+            HttpClient = httpClient;
             ThrowOnWarning = throwOnWarning;
         }
 
